@@ -1,0 +1,84 @@
+{
+  "id": "fe9250dd-aaeb-433b-82b8-89caa907a454",
+  "title": "Project Launch Checklist",
+  "items": [
+    {
+      "id": "93567000-4c68-4025-816c-c5fd0b15b198",
+      "title": "Pre-launch Planning",
+      "items": [
+        {
+          "id": "7c4e3f9b-0a7d-4b8c-9f5e-6d2a8c3e1d2b",
+          "title": "Create project timeline",
+          "description": "Outline all major milestones and deliverables.",
+          "done": false
+        },
+        {
+          "id": "a1b2c3d4-e5f6-7g8h-9i0j-k1l2m3n4o5p6",
+          "title": "Assign team roles and responsibilities",
+          "description": "Ensure every member has a clear understanding of their tasks.",
+          "done": false
+        }
+      ]
+    },
+    {
+      "id": "d827a135-cfe9-4a5e-bdd8-80bb79a45d85",
+      "title": "Development",
+      "items": [
+        {
+          "id": "b7c8d9e0-f1g2-h3i4-j5k6-l7m8n9o0p1q2",
+          "title": "Complete feature implementation",
+          "description": "Ensure all features in the scope are built and tested.",
+          "done": true
+        },
+        {
+          "id": "c8d9e0f1-g2h3-i4j5-k6l7-m8n9o0p1q2r3",
+          "title": "Code review",
+          "description": "Conduct thorough code reviews across all modules.",
+          "done": false
+        },
+        {
+          "id": "d9e0f1g2-h3i4-j5k6-l7m8-n9o0p1q2r3s4",
+          "title": "QA testing",
+          "description": "Perform end-to-end testing to ensure quality.",
+          "done": false
+        }
+      ]
+    },
+    {
+      "id": "83528db6-608c-470d-afb3-09a7cadbc85f",
+      "title": "Launch",
+      "items": [
+        {
+          "id": "eaea3b92-6363-4394-8d07-5a5e3b61faa0",
+          "title": "Pre-launch prep",
+          "items": [
+            {
+              "id": "e0f1g2h3-i4j5-k6l7-m8n9-o0p1q2r3s4t5",
+              "title": "Check the release notes",
+              "description": "Make sure the production environment is set and stable.",
+              "done": false
+            },
+            {
+              "id": "f1g2h3i4-j5k6-l7m8-n9o0-p1q2r3s4t5u6",
+              "title": "Deploy production environment",
+              "description": "Make sure the production environment is set and stable.",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "g2h3i4j5-k6l7-m8n9-o0p1-q2r3s4t5u6v7",
+          "title": "Notify stakeholders",
+          "description": "Inform all relevant stakeholders of the launch details.",
+          "done": false
+        },
+        {
+          "id": "h3i4j5k6-l7m8-n9o0-p1q2-r3s4t5u6v7w8",
+          "title": "Post-launch evaluation",
+          "description": "Assess performance and collect user feedback.",
+          "done": false
+        }
+      ]
+    }
+  ]
+}

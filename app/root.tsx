@@ -1,14 +1,10 @@
-import {
-  isRouteErrorResponse,
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from "react-router";
-
-import type { Route } from "./+types/root";
+import {isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration,} from "react-router";
+import type {Route} from "./+types/root";
 import "./app.css";
+import {PrimeReactProvider} from "primereact/api";
+import {useState} from "react";
+import {TailwindTheme} from "~/tailwind-theme";
+import {ConfirmDialog} from "primereact/confirmdialog";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -24,6 +20,8 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const [darkMode, setDarkMode] = useState<boolean | undefined>(undefined)
+
   return (
     <html lang="en">
       <head>
@@ -32,13 +30,33 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
-        {children}
-        <ScrollRestoration />
-        <Scripts />
+      <body className={ darkMode ? 'dark' : darkMode === false ? 'light' : ''}>
+        <PrimeReactProvider value={ { ripple: false,  unstyled: true, pt: TailwindTheme } }>
+          <ConfirmDialog />
+          <div id='theme-toggle' className="fixed top-0 right-0 z-50 p-2 cursor-pointer">
+            <i className={ `pi ${ darkMode ? 'pi-moon-o' : 'pi-sun'} aspect-square h-6` } onClick={() => setDarkMode(!darkMode)} />
+          </div>
+          <main className="flex items-center justify-center pt-16 pb-4">
+            <div className="max-w-[70rem] w-full space-y-6 px-4">
+              <nav className="rounded-3xl border border-gray-200 p-6 dark:border-gray-700 space-y-4">
+                {children}
+              </nav>
+            </div>
+          </main>
+          <ScrollRestoration />
+          <Scripts />
+        </PrimeReactProvider>
       </body>
     </html>
   );
+}
+
+export function HydrateFallback() {
+  return <>
+    <div className='flex justify-center items-center h-[calc(100vh-20%)]'>
+      Loading... <i className='pi pi-spin pi-spinner animate-spin' />
+    </div>
+  </>;
 }
 
 export default function App() {
