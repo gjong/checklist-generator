@@ -1,6 +1,6 @@
 import type {PrimeReactPTOptions} from "primereact/api";
-import {classNames} from "primereact/utils";
 import {type CSSTransitionClassNames, type CSSTransitionProps} from "react-transition-group/CSSTransition";
+import {classNames} from "primereact/utils";
 
 const TRANSITIONS = {
     overlay: {
@@ -74,7 +74,7 @@ export const TailwindTheme: PrimeReactPTOptions = {
         },
         headerTitle: options => 'font-bold text-lg',
         headerIcons: options => 'flex items-center',
-        content: ({ state, props }) => ({
+        content: ({state, props}) => ({
             className: classNames(
                 'overflow-y-auto',
                 'bg-white text-gray-700 px-6 pb-8 pt-0',
@@ -84,8 +84,8 @@ export const TailwindTheme: PrimeReactPTOptions = {
                 },
                 {'rounded-bl-lg rounded-br-lg': !props.footer})
         }),
-        mask: ({ state }) => ({
-            className: classNames('transition duration-200', { 'bg-black/40': state.containerVisible })
+        mask: ({state}) => ({
+            className: classNames('transition duration-200', {'bg-black/40': state.containerVisible})
         }),
         closeButton: {
             className: classNames(
@@ -100,7 +100,7 @@ export const TailwindTheme: PrimeReactPTOptions = {
         footer: {
             className: classNames('shrink-0 ', 'flex gap-2 justify-end', 'border-t-1 border-t-gray-200/70 bg-white text-gray-700 px-6 py-3 text-right rounded-b-lg', 'dark:bg-gray-900  dark:text-white/80'),
         },
-        transition: ({ props }) => {
+        transition: ({props}) => {
             return props.position === 'top'
                 ? {
                     enterFromClass: 'opacity-0 scale-75 translate-x-0 -translate-y-full translate-z-0',
@@ -138,7 +138,7 @@ export const TailwindTheme: PrimeReactPTOptions = {
         }
     },
     button: {
-        root: ({ props, context }) => ({
+        root: ({props, context}) => ({
             className: classNames(
                 'items-center cursor-pointer inline-flex overflow-hidden relative select-none text-center align-bottom',
                 'transition duration-200 ease-in-out',
@@ -177,8 +177,8 @@ export const TailwindTheme: PrimeReactPTOptions = {
                     'text-white dark:text-gray-900 bg-red-500 dark:bg-red-400 border border-red-500 dark:border-red-400 hover:bg-red-600 dark:hover:bg-red-500 hover:border-red-600 dark:hover:border-red-500':
                         props.severity === 'danger' && !props.text && !props.outlined && !props.plain
                 },
-                { 'shadow-lg': props.raised },
-                { 'rounded-md': !props.rounded, 'rounded-full': props.rounded },
+                {'shadow-lg': props.raised},
+                {'rounded-md': !props.rounded, 'rounded-full': props.rounded},
                 {
                     'bg-transparent border-transparent': props.text && !props.plain,
                     'text-blue-500 dark:text-blue-400 hover:bg-blue-300/20': props.text && (props.severity === null || props.severity === 'info') && !props.plain,
@@ -188,7 +188,7 @@ export const TailwindTheme: PrimeReactPTOptions = {
                     'text-purple-500 dark:text-purple-400 hover:bg-purple-300/20': props.text && props.severity === 'help' && !props.plain,
                     'text-red-500 dark:text-red-400 hover:bg-red-300/20': props.text && props.severity === 'danger' && !props.plain
                 },
-                { 'shadow-lg': props.raised && props.text },
+                {'shadow-lg': props.raised && props.text},
                 {
                     'text-gray-500 hover:bg-gray-300/20': props.plain && props.text,
                     'text-gray-500 border border-gray-500 hover:bg-gray-300/20': props.plain && props.outlined,
@@ -203,12 +203,16 @@ export const TailwindTheme: PrimeReactPTOptions = {
                     'text-purple-500 dark:text-purple-400 border border-purple-500 dark:border-purple-400 hover:bg-purple-300/20': props.outlined && props.severity === 'help' && !props.plain,
                     'text-red-500 dark:text-red-400 border border-red-500 dark:border-red-400 hover:bg-red-300/20': props.outlined && props.severity === 'danger' && !props.plain
                 },
-                { 'px-4 py-3 text-base': props.size === null, 'text-xs py-2 px-3': props.size === 'small', 'text-xl py-3 px-4': props.size === 'large' },
-                { 'flex-column': props.iconPos == 'top' || props.iconPos == 'bottom' },
-                { 'opacity-60 pointer-events-none cursor-default': context.disabled }
+                {
+                    'px-4 py-3 text-base': props.size === null,
+                    'text-xs py-2 px-3': props.size === 'small',
+                    'text-xl py-3 px-4': props.size === 'large'
+                },
+                {'flex-column': props.iconPos == 'top' || props.iconPos == 'bottom'},
+                {'opacity-60 pointer-events-none cursor-default': context.disabled}
             )
         }),
-        label: ({ props }) => ({
+        label: ({props}) => ({
             className: classNames(
                 'flex-1',
                 'duration-200',
@@ -216,10 +220,10 @@ export const TailwindTheme: PrimeReactPTOptions = {
                 {
                     'hover:underline': props.link
                 },
-                { 'invisible w-0': props.label == null }
+                {'invisible w-0': props.label == null}
             )
         }),
-        icon: ({ props }) => ({
+        icon: ({props}) => ({
             className: classNames('mx-0', {
                 'mr-2': props.iconPos == 'left' && props.label != null,
                 'ml-2 order-1': props.iconPos == 'right' && props.label != null,
@@ -227,7 +231,7 @@ export const TailwindTheme: PrimeReactPTOptions = {
                 'mt-2 order-2': props.iconPos == 'bottom' && props.label != null
             })
         }),
-        loadingIcon: ({ props }) => ({
+        loadingIcon: ({props}) => ({
             className: classNames('mx-0', {
                 'mr-2': props.loading && props.iconPos == 'left' && props.label != null,
                 'ml-2 order-1': props.loading && props.iconPos == 'right' && props.label != null,
@@ -235,12 +239,12 @@ export const TailwindTheme: PrimeReactPTOptions = {
                 'mt-2 order-2': props.loading && props.iconPos == 'bottom' && props.label != null
             })
         }),
-        badge: ({ props }) => ({
-            className: classNames({ 'ml-2 w-4 h-4 leading-none flex items-center justify-center': props.badge })
+        badge: ({props}) => ({
+            className: classNames({'ml-2 w-4 h-4 leading-none flex items-center justify-center': props.badge})
         })
     },
     inputtext: {
-        root: ({ props, context }) => ({
+        root: ({props, context}) => ({
             className: classNames(
                 'm-0',
                 'font-sans text-gray-600 dark:text-white/80 bg-white dark:bg-gray-900 border transition-colors duration-200 appearance-none rounded-lg',
@@ -267,7 +271,7 @@ export const TailwindTheme: PrimeReactPTOptions = {
         }),
     },
     divider: {
-        root: ({ props }) => ({
+        root: ({props}) => ({
             className: classNames(
                 'flex relative', // alignments.
                 {
@@ -315,7 +319,7 @@ export const TailwindTheme: PrimeReactPTOptions = {
         uploadIcon: 'mr-2'
     },
     tooltip: {
-        root: ({ context }) => {
+        root: ({context}) => {
             return {
                 className: classNames('absolute shadow-md', {
                     'py-0 px-1': context.right || context.left || (!context.right && !context.left && !context.top && !context.bottom),
@@ -323,7 +327,7 @@ export const TailwindTheme: PrimeReactPTOptions = {
                 })
             };
         },
-        arrow: ({ context }) => ({
+        arrow: ({context}) => ({
             className: classNames('absolute w-0 h-0 border-transparent border-solid', {
                 '-mt-1 border-y-[0.25rem] border-r-[0.25rem] border-l-0 border-r-gray-600': context.right,
                 '-mt-1 border-y-[0.25rem] border-l-[0.25rem] border-r-0 border-l-gray-600': context.left,

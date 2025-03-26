@@ -1,10 +1,10 @@
 import {isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration,} from "react-router";
 import type {Route} from "./+types/root";
-import "./app.css";
 import {PrimeReactProvider} from "primereact/api";
 import {useState} from "react";
 import {TailwindTheme} from "~/tailwind-theme";
 import {ConfirmDialog} from "primereact/confirmdialog";
+import "./app.css";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
