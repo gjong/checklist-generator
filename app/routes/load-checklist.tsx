@@ -33,6 +33,16 @@ export default function LoadChecklist() {
     const localStoredLists = useMemo(() => loadChecklistFromStorage(), [reload])
     const navigate = useNavigate()
 
+    const onNewListClick = () => {
+        const newChecklistId = crypto.randomUUID()
+        localStorage.setItem(newChecklistId, JSON.stringify({
+          id: newChecklistId,
+          title: 'New Checklist',
+          items: []
+        }))
+        navigate(`/checklist/${newChecklistId}`)
+    }
+
     const handleChecklistDelete = (checklistId: string) => {
         localStorage.removeItem(checklistId);
         setReload(!reload)
@@ -137,7 +147,7 @@ export default function LoadChecklist() {
                             icon="pi pi-plus"
                             severity="info"
                             className="w-full md:w-auto"
-                            onClick={() => navigate('/new-checklist')}
+                            onClick={ onNewListClick }
                         />
                     </div>
                 </div>
