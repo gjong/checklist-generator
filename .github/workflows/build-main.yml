@@ -36,7 +36,7 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: documentation
+          name: build-artifact
           path: dist
       - name: Build And Deploy
         uses: Azure/static-web-apps-deploy@v1
