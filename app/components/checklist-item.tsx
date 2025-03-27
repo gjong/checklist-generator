@@ -4,7 +4,7 @@ import {useRef} from "react";
 import {transitionClasses} from "~/const";
 import {confirmDialog} from "primereact/confirmdialog";
 import {Button} from "primereact/button";
-import {findItemById, useChecklist} from "~/checklist-context";
+import {findItemById, useChecklist} from "~/context";
 
 type ChecklistItemProps = {
     itemId: string,
@@ -36,8 +36,10 @@ export function ChecklistItemComponent({itemId, onDelete}: ChecklistItemProps) {
         <ChecklistEntryNameDialog value={ checklistItem.title }
                                   ref={ editTitleDialogRef }
                                   callback={ title => updateItemTitle(checklistItem.id, title) }/>
-        <div className='flex justify-between items-center px-2 py-1 rounded-md hover:bg-gray-50 dark:hover:bg-gray-800/30 mb-1 group'>
+        <div className='flex justify-between items-center px-2 py-1 rounded-md hover:bg-gray-50 dark:hover:bg-gray-800/30 mb-1 group checklist-item'>
             <div className='flex gap-2 items-center'>
+                <i className={`pi pi-bars text-sm aspect-square cursor-move text-gray-400/60 hover:text-gray-400/90 dark:text-gray-300/60 dark:hover:text-gray-300 ${transitionClasses}`}
+                   title="Drag to reorder" />
                 <input
                     type="checkbox"
                     className="w-4 h-4 rounded cursor-pointer"

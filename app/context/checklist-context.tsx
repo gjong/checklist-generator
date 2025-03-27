@@ -7,6 +7,7 @@ type ChecklistContextType = {
     checklist: Checklist;
     renameChecklist: (value: string) => void;
     addItemToSection: (sectionId: string, item: ChecklistEntry) => void;
+    moveItem: (sectionId: string, fromIndex: number, toIndex: number) => void;
     updateItemStatus: (itemId: string, checked: boolean) => void;
     updateItemTitle: (itemId: string, title: string) => void;
     updateSectionTitle: (sectionId: string, title: string) => void;
@@ -59,6 +60,29 @@ export const ChecklistProvider: React.FC<{
         }
     }
 
+    const moveItem = (sectionId: string, fromIndex: number, toIndex: number) => {
+        setChecklist(prev => {
+            // Create a deep copy of the checklist
+            const newChecklist = {...prev};
+
+             // Find the section in the checklist
+            const section = sectionId === "ROOT"
+                ? { items: newChecklist.items } as ChecklistSection
+                : findItemById<ChecklistSection>(newChecklist.items, sectionId);
+
+            if (!section) return prev;
+
+            const movedItem = section.items.find(item => item.order === fromIndex)!;
+            section.items
+                .filter(item => item.order >= Math.min(fromIndex, toIndex) && item.order <= Math.max(fromIndex, toIndex))
+                .forEach(item => item.order += fromIndex < toIndex ? -1 : 1)
+            movedItem.order = toIndex;
+            console.log('Moving items between order indices', Math.min(fromIndex, toIndex), Math.max(fromIndex, toIndex), movedItem, section.items)
+            return newChecklist;
+        });
+    };
+
+
     const updateItemStatus = (itemId: string, checked: boolean) => {
         setChecklist(currentChecklist => {
             const newChecklist = structuredClone(currentChecklist);
@@ -104,6 +128,7 @@ export const ChecklistProvider: React.FC<{
         <ChecklistContext.Provider value={{
             checklist,
             renameChecklist,
+            moveItem,
             addItemToSection,
             updateItemStatus,
             updateItemTitle,

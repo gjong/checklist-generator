@@ -5,11 +5,18 @@ import {InputText} from "primereact/inputtext";
 import {Button} from "primereact/button";
 import {RadioButton} from "primereact/radiobutton";
 
-export function ChecklistEntryDialog({ ref, callback }: { ref: Ref<any>, callback?: (updated: ChecklistEntry) => void}) {
+type ChecklistEntryDialogProps = {
+    ref: Ref<any>,
+    callback?: (updated: ChecklistEntry) => void,
+    order: number
+}
+
+export function ChecklistEntryDialog({ ref, callback, order }: ChecklistEntryDialogProps) {
     const [visible, setVisible] = useState(false)
     const [entry, setEntry] = useState(() => ({
         id: crypto.randomUUID(),
-        title: ''
+        title: '',
+        order
     }))
     const [type, setType] = useState('item')
 
@@ -17,7 +24,8 @@ export function ChecklistEntryDialog({ ref, callback }: { ref: Ref<any>, callbac
         open() {
             setEntry({
                 id: crypto.randomUUID(),
-                title: ''
+                title: '',
+                order
             })
             setVisible(true)
         }

@@ -6,6 +6,7 @@ import {Divider} from "primereact/divider";
 import {Card} from "primereact/card";
 import {Button} from "primereact/button";
 import {useNavigate} from "react-router";
+import {confirmDialog} from "primereact/confirmdialog";
 
 export function meta({}: Route.MetaArgs) {
     return [
@@ -43,9 +44,23 @@ export default function LoadChecklist() {
         navigate(`/checklist/${newChecklistId}`)
     }
 
-    const handleChecklistDelete = (checklistId: string) => {
-        localStorage.removeItem(checklistId);
-        setReload(!reload)
+    const handleChecklistDelete = (checklist: Checklist) => {
+        confirmDialog({
+            message: 'Are you sure you want to delete "' + checklist.title + '"?',
+            icon: 'pi pi-exclamation-triangle',
+            defaultFocus: 'accept',
+            acceptClassName: 'p-button-danger',
+            accept() {
+                localStorage.removeItem(checklist.id);
+                setReload(!reload)
+            },
+            footer: x => {
+                return <>
+                    <Button label='cancel' text severity='secondary' icon='pi pi-times-circle' onClick={ x.reject }/>
+                    <Button label='delete' text severity='danger' icon='pi pi-trash' onClick={ x.accept }/>
+                </>
+            }
+        })
     };
 
     const createTitle = (title: string) => {
@@ -61,8 +76,8 @@ export default function LoadChecklist() {
             Manage Your Checklists
         </h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <Card title={ createTitle("Saved Checklists") } className="shadow-lg">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+            <Card title={ createTitle("Saved Checklists") } className="">
                 <div className="p-2">
                     {localStoredLists.length > 0 ? (
                         <div className="space-y-4">
@@ -77,7 +92,7 @@ export default function LoadChecklist() {
                                                 icon="pi pi-trash"
                                                 severity="danger"
                                                 outlined
-                                                onClick={() => handleChecklistDelete(checklist.id)}
+                                                onClick={() => handleChecklistDelete(checklist)}
                                                 tooltip="Delete checklist" />
                                             <Button
                                                 icon="pi pi-check"
@@ -101,7 +116,7 @@ export default function LoadChecklist() {
                     )}
                 </div>
             </Card>
-            <Card title={ createTitle("Import Checklists") } className="shadow-lg">
+            <Card title={ createTitle("Import Checklists") } className="">
                 <div className="p-2">
                     <p className="mb-4 text-gray-600 dark:text-gray-400">
                         Upload a previously exported checklist file (.json format).

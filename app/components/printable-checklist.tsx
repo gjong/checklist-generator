@@ -1,8 +1,6 @@
 import type {Checklist, ChecklistEntry} from "~/checklist.type";
-
-type PrintableChecklistProps = {
-    checklist: Checklist;
-}
+import {useChecklist} from "~/context";
+import {useEffect, useReducer} from "react";
 
 const PrintStyles = () => (
     <style type="text/css" media="print">
@@ -70,7 +68,14 @@ const PrintStyles = () => (
 );
 
 
-export const PrintableChecklist = ({ checklist }: PrintableChecklistProps) => {
+export const PrintableChecklist = () => {
+    const { checklist } = useChecklist();
+    const [_, forceUpdate] = useReducer(x => x + 1, 0);
+
+    useEffect(() => {
+        forceUpdate();
+    }, [checklist])
+
     const renderChecklistEntry = (entry: ChecklistEntry, depth: number) => {
         if ('items' in entry) {
             // This is a section

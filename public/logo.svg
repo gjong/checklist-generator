@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+    <!-- Background -->
+    <rect width="256" height="256" rx="24" fill="#2980B9" />
+
+    <!-- Checklist Paper -->
+    <rect x="48" y="48" width="160" height="160" rx="8" fill="white" />
+
+    <!-- Checklist Lines -->
+    <line x1="68" y1="88" x2="188" y2="88" stroke="#E0E0E0" stroke-width="2" />
+    <line x1="68" y1="128" x2="188" y2="128" stroke="#E0E0E0" stroke-width="2" />
+    <line x1="68" y1="168" x2="188" y2="168" stroke="#E0E0E0" stroke-width="2" />
+
+    <!-- Checkboxes -->
+    <rect x="68" y="72" width="16" height="16" rx="2" fill="#ECF0F1" stroke="#3498DB" stroke-width="2" />
+    <rect x="68" y="112" width="16" height="16" rx="2" fill="#ECF0F1" stroke="#3498DB" stroke-width="2" />
+    <rect x="68" y="152" width="16" height="16" rx="2" fill="#ECF0F1" stroke="#3498DB" stroke-width="2" />
+
+    <!-- Checkmark in first box -->
+    <path d="M71 80 L76 85 L83 74" fill="none" stroke="#27AE60" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+    <!-- Pencil icon -->
+    <g transform="translate(188, 48) rotate(45) scale(0.6)">
+        <rect x="-8" y="-30" width="16" height="40" rx="2" fill="#F1C40F" />
+        <polygon points="0,-35 -5,-30 5,-30" fill="#E74C3C" />
+        <rect x="-6" y="10" width="12" height="6" rx="1" fill="#7F8C8D" />
+    </g>
+
+    <!-- Text "Checklist Generator" - replaced with abstract representation -->
+    <rect x="94" y="70" width="50" height="8" rx="4" fill="#3498DB" />
+    <rect x="94" y="112" width="70" height="8" rx="4" fill="#3498DB" />
+    <rect x="94" y="152" width="60" height="8" rx="4" fill="#3498DB" />
+</svg>

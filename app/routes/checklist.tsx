@@ -1,8 +1,8 @@
 import type {Route} from "../../.react-router/types/app/routes/+types/checklist";
-import {ChecklistEntry} from "~/components/checklist-entry";
+import {ChecklistEntryComponent} from "~/components/checklist-entry";
 import type {Checklist} from "~/checklist.type";
 import {type LoaderFunctionArgs, useLoaderData, useNavigate} from "react-router";
-import {ChecklistProvider, useChecklist} from "~/checklist-context";
+import {ChecklistProvider, useChecklist, DragDropProvider} from "~/context";
 import defaultChecklist from "~/data/default-checklist.json"
 import {Button} from "primereact/button";
 import {DownloadChecklist} from "~/components/download-checklist";
@@ -11,6 +11,7 @@ import {ChecklistEntryNameDialog} from "~/components/checklist-entry-name-dialog
 import {useRef} from "react";
 import {ChecklistEntryDialog} from "~/components/checklist-entry-dialog";
 import {PrintableChecklist} from "~/components/printable-checklist";
+import {patchAnyStructureChanges} from "~/migrations";
 
 export function meta({}: Route.MetaArgs) {
     return [
@@ -22,9 +23,12 @@ export function meta({}: Route.MetaArgs) {
 export function clientLoader({ request, params }: LoaderFunctionArgs) {
     if (params.checklistId) {
         const cachedChecklist = localStorage.getItem(params.checklistId);
-        console.log(cachedChecklist)
         if (cachedChecklist) {
-            return JSON.parse(cachedChecklist);
+            const checklist = JSON.parse(cachedChecklist);
+            if (patchAnyStructureChanges(checklist)) {
+                localStorage.setItem(params.checklistId, JSON.stringify(checklist));
+            }
+            return checklist;
         }
     }
     return defaultChecklist as Checklist;
@@ -40,8 +44,8 @@ const ChecklistInnerComponent = () => {
         <ChecklistEntryNameDialog value={checklist?.title }
                                   ref={ editTitleDialogRef }
                                   callback={ title => renameChecklist(title) }/>
-        <ChecklistEntryDialog ref={ newEntrDialogRef } callback={ entry => addItemToSection(checklist.id, entry) } />
-        <h1 className="leading-6 text-gray-700 dark:text-gray-400 justify-center text-3xl mb-10 flex gap-2 items-center">
+        <ChecklistEntryDialog ref={ newEntrDialogRef } callback={ entry => addItemToSection(checklist.id, entry) } order={ checklist?.items?.length ?? 0 } />
+        <h1 className="leading-6 font-bold text-gray-700 dark:text-gray-400 justify-center text-3xl mb-10 flex gap-2 items-center">
             {checklist?.title}
             <i className={`pi pi-pencil text-sm aspect-square cursor-pointer text-gray-400/60 hover:text-gray-400/90 dark:text-gray-300/60 dark:hover:text-gray-300 ${transitionClasses}`}
                title="Edit section"
@@ -51,10 +55,11 @@ const ChecklistInnerComponent = () => {
                onClick={() => newEntrDialogRef.current.open()}/>
         </h1>
 
-        <div className='flex flex-col gap-4'>
+        <div className='flex flex-col gap-4 checklist-content'>
             {
-                (checklist?.items || []).map(checklistItem =>
-                    <ChecklistEntry checklistItem={checklistItem} key={checklistItem.title}/>)
+                (checklist?.items || [])
+                    .sort((a, b) => a.order - b.order)
+                    .map(checklistItem => <ChecklistEntryComponent checklistItem={checklistItem} key={checklistItem.title} />)
             }
         </div>
 
@@ -65,7 +70,7 @@ const ChecklistInnerComponent = () => {
         </div>
 
         <div className="hidden print:block">
-            <PrintableChecklist checklist={checklist} />
+            <PrintableChecklist />
         </div>
     </>
 }
@@ -75,7 +80,9 @@ export default function ChecklistComponent() {
 
     return <>
         <ChecklistProvider initialChecklist={ initialChecklist }>
-            <ChecklistInnerComponent />
+            <DragDropProvider>
+                <ChecklistInnerComponent />
+            </DragDropProvider>
         </ChecklistProvider>
     </>
 }

@@ -31,13 +31,13 @@ export default function Home() {
       This tool helps you create a checklist for your project.
     </p>
 
+    <div className='flex justify-center'>
+      <img src='/logo.svg' alt='Checklist Generator' className='w-1/2 opacity-90' />
+    </div>
+
     <div className='flex gap-4 justify-center'>
       <Button label='Start a new checklist' icon='pi pi-plus' severity='success' onClick={ onNewListClick }/>
-      <NavLink to='/load-checklist'
-               className='bg-blue-800 px-5 py-2 rounded-lg flex gap-2 items-center'>
-        <i className='pi pi-cloud-upload' />
-        Load existing checklist
-      </NavLink>
+      <Button label='Load existing checklist' icon='pi pi-cloud-upload' severity='info' onClick={() => navigate('/load-checklist')} />
     </div>
   </>
 }
