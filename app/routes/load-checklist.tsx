@@ -19,7 +19,7 @@ function loadChecklistFromStorage(): Checklist[] {
     const loadedChecklists: Checklist[] = []
     for (const key of Object.keys(localStorage)) {
         const value = localStorage.getItem(key)
-        if (value) {
+        if (value && value.startsWith('{')) {
             const potentialChecklist = JSON.parse(value)
             if (potentialChecklist.id) {
                 loadedChecklists.push(potentialChecklist)
@@ -162,8 +162,7 @@ export default function LoadChecklist() {
                             icon="pi pi-plus"
                             severity="info"
                             className="w-full md:w-auto"
-                            onClick={ onNewListClick }
-                        />
+                            onClick={ onNewListClick } />
                     </div>
                 </div>
             </Card>
