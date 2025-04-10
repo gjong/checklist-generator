@@ -12,6 +12,7 @@ import {useRef} from "react";
 import {ChecklistEntryDialog} from "~/components/checklist-entry-dialog";
 import {PrintableChecklist} from "~/components/printable-checklist";
 import {patchAnyStructureChanges} from "~/migrations";
+import { Tooltip } from "primereact/tooltip";
 
 export function meta({}: Route.MetaArgs) {
     return [
@@ -72,6 +73,8 @@ const ChecklistInnerComponent = () => {
         <div className="hidden print:block">
             <PrintableChecklist />
         </div>
+        
+        <Tooltip target=".checklist-section [data-pr-tooltip]" position="left" />
     </>
 }
 
